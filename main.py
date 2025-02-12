@@ -1,18 +1,17 @@
 def main():
-    with open("books/frankenstein.txt") as f:  # Loads txt file into string.
-        file_contents = f.read()
-        # print(file_contents)
-    # print(count_words(file_contents))
-    result = count_chars(file_contents)
-    print(result)
+    book_path = "books/frankenstein.txt"
+    text = get_book_text(book_path)
+    num_words = get_num_words(text)
+    chars_dict = get_chars_dict(text)
+    print(chars_dict)
 
 
-def count_words(text):
+def get_num_words(text):
     words = text.split()
     return len(words)
 
 
-def count_chars(text):
+def get_chars_dict(text):
     char_set = set(text.lower())
     char_dict = dict()
     for char in char_set:
@@ -21,6 +20,11 @@ def count_chars(text):
             if c.lower() == char:
                 char_dict[char] += 1
     return char_dict
+
+
+def get_book_text(path):
+    with open(path) as f:
+        return f.read()
 
 
 main()
