@@ -4,7 +4,13 @@ def main():
     num_words = get_num_words(text)
     chars_dict = get_chars_dict(text)
     alpha_count_list = get_alpha_list(chars_dict)
-    print(alpha_count_list)
+
+    print_report(num_words, alpha_count_list, book_path)
+
+
+def get_book_text(path):
+    with open(path) as f:
+        return f.read()
 
 
 def get_num_words(text):
@@ -25,16 +31,20 @@ def get_chars_dict(text):
 
 def get_alpha_list(char_dict):
     alpha_list = list()
-    alpha_dict = dict()
     for key, value in char_dict.items():
         if key.isalpha():
-            alpha_list.append({key: value})
+            alpha_list.append({"char": key, "count" : value})
+    alpha_list.sort(reverse=True, key=sort_on)
     return alpha_list
 
+def sort_on(dict):
+    return dict["count"]
 
-def get_book_text(path):
-    with open(path) as f:
-        return f.read()
-
+def print_report(word_count, alpha_count, book_path):
+    print(f"--- Begin report of {book_path} ---")
+    print(f"{word_count} words found in the document\n")
+    for char in alpha_count:
+        print("The '" + char["char"] + "' character was found " + str(char["count"]) + " times")
+    print("--- End report ---")
 
 main()
