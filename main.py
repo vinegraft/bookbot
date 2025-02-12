@@ -3,7 +3,8 @@ def main():
     text = get_book_text(book_path)
     num_words = get_num_words(text)
     chars_dict = get_chars_dict(text)
-    print(chars_dict)
+    alpha_count_list = get_alpha_list(chars_dict)
+    print(alpha_count_list)
 
 
 def get_num_words(text):
@@ -20,6 +21,15 @@ def get_chars_dict(text):
             if c.lower() == char:
                 char_dict[char] += 1
     return char_dict
+
+
+def get_alpha_list(char_dict):
+    alpha_list = list()
+    alpha_dict = dict()
+    for key, value in char_dict.items():
+        if key.isalpha():
+            alpha_list.append({key: value})
+    return alpha_list
 
 
 def get_book_text(path):
